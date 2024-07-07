@@ -1,10 +1,14 @@
 package com.likelion.oauth2test.feed.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.likelion.oauth2test.feed.controller.dto.request.UploadImageRequestDto;
@@ -30,5 +34,11 @@ public class FeedController {
 	@GetMapping
 	public BaseResponse<FeedListResponse> getAllFeedsOfUser(@AuthenticationPrincipal String userId){
 		return BaseResponse.success(Success.GET_SUCCESS, feedService.getAllFeedsOfUser(userId));
+	}
+
+	@DeleteMapping("/{feedId}")
+	public BaseResponse<String> deleteFeedOfUser(@AuthenticationPrincipal String userId, @PathVariable(name = "feedId") Long feedId){
+		feedService.deleteFeedOfUser(userId,feedId);
+		return BaseResponse.success(Success.POST_DELETE_SUCCESS, "삭제성공, id = :"+feedId);
 	}
 }

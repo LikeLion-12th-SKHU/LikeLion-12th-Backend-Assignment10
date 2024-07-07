@@ -69,8 +69,17 @@ public class S3Service {
 
 	// 이미지 삭제
 	public void deleteFile(String imageUrl) {
-		String imageKey = imageUrl.substring(49);
-		amazonS3.deleteObject(bucket, imageKey);
+		String keyword = bucket +"/";
+		int keywordIndex = imageUrl.indexOf(keyword);
+
+		if (keywordIndex != -1) {
+			// 'com/' 뒤의 문자열 추출
+			String imageKey = imageUrl.substring(keywordIndex + keyword.length());
+			System.out.println(imageKey);
+			amazonS3.deleteObject(bucket, imageKey);
+		} else {
+			throw new RuntimeException("s3 로직오류. 서버에게 문의하세요.");
+		}
 	}
 
 

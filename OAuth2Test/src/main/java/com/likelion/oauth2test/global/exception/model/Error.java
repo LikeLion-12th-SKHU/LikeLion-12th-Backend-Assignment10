@@ -31,6 +31,11 @@ public enum Error {
 	EXTENSION_NOT_VALID_ERROR(HttpStatus.BAD_REQUEST, "지원하지 않는 확장자입니다."),
 
 	/**
+	 * 403 FORBIDDEN
+	 */
+	FORBIDDEN_ERROR(HttpStatus.FORBIDDEN, "해당 리소스에 접근할 권한이 없습니다."),
+
+	/**
 	 * 500 INTERNAL SERVER ERROR
 	 */
 	INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "알 수 없는 서버 에러.");

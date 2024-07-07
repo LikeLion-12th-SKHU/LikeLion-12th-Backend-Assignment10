@@ -12,6 +12,7 @@ import com.likelion.oauth2test.feed.controller.dto.response.FeedListResponse;
 import com.likelion.oauth2test.feed.controller.dto.response.FeedResponse;
 import com.likelion.oauth2test.feed.domain.Feed;
 import com.likelion.oauth2test.feed.domain.repository.FeedRepository;
+import com.likelion.oauth2test.global.exception.ForbiddenException;
 import com.likelion.oauth2test.global.exception.NotFoundException;
 import com.likelion.oauth2test.global.exception.model.Error;
 import com.likelion.oauth2test.user.domain.User;
@@ -48,6 +49,19 @@ public class FeedService {
 			.map(FeedResponse::from)
 			.collect(Collectors.toList());
 		return FeedListResponse.from(feeds);
+	}
+
+	@Transactional
+	public void deleteFeedOfUser(String userId, Long feedId){
+		User user = findUserInFeedService(userId);
+		Feed feed = feedRepository.findById(feedId).orElseThrow(
+			() -> new NotFoundException(Error.MEMBERS_NOT_FOUND_EXCEPTION, Error.MEMBERS_NOT_FOUND_EXCEPTION.getMessage())
+		);
+		if (!user.equals(feed.getUser())){
+			throw new ForbiddenException(Error.FORBIDDEN_ERROR, Error.FORBIDDEN_ERROR.getMessage());
+		}
+		s3Service.deleteFile(feed.getImage());
+		feedRepository.deleteById(feedId);
 	}
 
 	private User findUserInFeedService(String userId){
