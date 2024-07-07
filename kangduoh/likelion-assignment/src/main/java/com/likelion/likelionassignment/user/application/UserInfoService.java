@@ -20,7 +20,7 @@ public class UserInfoService {
     @Transactional(readOnly = true)
     public ApiResponseTemplate<UserInfoResDto> getUserInfo(String userName) {
         User user = userRepository.findByEmail(userName)
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER_EXCEPTION, "사용자를 찾을 수 없습니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER_EXCEPTION, ErrorCode.NOT_FOUND_USER_EXCEPTION.getMessage()));
 
         UserInfoResDto resDto = UserInfoResDto.builder()
                 .name(user.getName())

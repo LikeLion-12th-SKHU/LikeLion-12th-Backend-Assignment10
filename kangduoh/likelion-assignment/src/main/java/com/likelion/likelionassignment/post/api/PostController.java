@@ -5,6 +5,7 @@ import com.likelion.likelionassignment.post.api.dto.PostDto;
 import com.likelion.likelionassignment.post.api.dto.request.PostCreateReqDto;
 import com.likelion.likelionassignment.post.api.dto.request.PostUpdateReqDto;
 import com.likelion.likelionassignment.post.api.dto.response.PostCreateResDto;
+import com.likelion.likelionassignment.post.api.dto.response.PostUpdateResDto;
 import com.likelion.likelionassignment.post.application.PostService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -39,36 +40,26 @@ public class PostController {
     @GetMapping
     public ResponseEntity<ApiResponseTemplate<List<PostDto>>> getAllPosts() {
         Principal principal = SecurityContextHolder.getContext().getAuthentication();
-        List<PostDto> posts = postService.getAllPosts(principal).getData();
-        ApiResponseTemplate<List<PostDto>> data = ApiResponseTemplate.<List<PostDto>>builder()
-                .status(200)
-                .success(true)
-                .message("모든 게시글 조회 성공")
-                .data(posts)
-                .build();
+        ApiResponseTemplate<List<PostDto>> data = postService.getAllPosts(principal);
+
         return ResponseEntity.status(data.getStatus()).body(data);
     }
 
     @GetMapping("/{postId}")
     public ResponseEntity<ApiResponseTemplate<PostDto>> getPostById(@PathVariable Long postId, Principal principal) {
-        PostDto post = postService.getPostById(postId, principal).getData();
-        ApiResponseTemplate<PostDto> data = ApiResponseTemplate.<PostDto>builder()
-                .status(200)
-                .success(true)
-                .message("특정 게시글 조회 성공")
-                .data(post)
-                .build();
+        ApiResponseTemplate<PostDto> data = postService.getPostById(postId, principal);
+
         return ResponseEntity.status(data.getStatus()).body(data);
     }
 
     @PatchMapping("/{postId}")
-    public ResponseEntity<ApiResponseTemplate<Void>> updatePost(
+    public ResponseEntity<ApiResponseTemplate<PostUpdateResDto>> updatePost(
             @PathVariable Long postId,
             @RequestPart("reqDto") PostUpdateReqDto reqDto,
             @RequestPart(value = "image", required = false) MultipartFile image,
             Principal principal) throws IOException {
 
-        ApiResponseTemplate<Void> data = postService.updatePost(principal, postId, reqDto, image);
+        ApiResponseTemplate<PostUpdateResDto> data = postService.updatePost(principal, postId, reqDto, image);
 
         return ResponseEntity.status(data.getStatus()).body(data);
     }
