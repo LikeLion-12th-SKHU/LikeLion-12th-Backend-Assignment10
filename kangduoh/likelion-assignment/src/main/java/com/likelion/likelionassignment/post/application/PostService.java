@@ -85,7 +85,7 @@ public class PostService {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_POST_EXCEPTION, ErrorCode.NOT_FOUND_POST_EXCEPTION.getMessage()));
 
-        if (!post.getUser().getEmail().equals(user.getEmail())) {
+        if (!post.getUser().getUserId().equals(user.getUserId())) {
             throw new CustomException(ErrorCode.ONLY_OWN_POST_MODIFY_EXCEPTION, ErrorCode.ONLY_OWN_POST_MODIFY_EXCEPTION.getMessage());
         }
 
@@ -107,7 +107,7 @@ public class PostService {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_POST_EXCEPTION, ErrorCode.NOT_FOUND_POST_EXCEPTION.getMessage()));
 
-        if (!post.getUser().getEmail().equals(user.getEmail())) {
+        if (!post.getUser().getUserId().equals(user.getUserId())) {
             throw new CustomException(ErrorCode.ONLY_OWN_POST_MODIFY_EXCEPTION, ErrorCode.ONLY_OWN_POST_MODIFY_EXCEPTION.getMessage());
         }
 
@@ -117,8 +117,8 @@ public class PostService {
     }
 
     private User getAuthenticatedUser(Principal principal) {
-        String userEmail = principal.getName();
-        return userRepository.findByEmail(userEmail)
+        Long userId = Long.parseLong(principal.getName());
+        return userRepository.findById(userId)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER_EXCEPTION, ErrorCode.NOT_FOUND_USER_EXCEPTION.getMessage()));
     }
 

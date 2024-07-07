@@ -22,8 +22,8 @@ public class UserInfoService {
 
     @Transactional(readOnly = true)
     public ApiResponseTemplate<UserInfoResDto> getUserInfo(Principal principal) {
-        String userEmail = principal.getName();
-        User user = userRepository.findByEmail(userEmail)
+        Long userId = Long.parseLong(principal.getName());
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER_EXCEPTION, ErrorCode.NOT_FOUND_USER_EXCEPTION.getMessage()));
 
         UserInfoResDto resDto = UserInfoResDto.builder()
