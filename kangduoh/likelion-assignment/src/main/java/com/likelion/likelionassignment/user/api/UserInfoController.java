@@ -19,8 +19,8 @@ public class UserInfoController {
 
     @GetMapping
     public ResponseEntity<ApiResponseTemplate<UserInfoResDto>> getUserDetails(Principal principal) {
-        String userName = principal.getName();
-        ApiResponseTemplate<UserInfoResDto> data = userInfoService.getUserInfo(userName);
+
+        ApiResponseTemplate<UserInfoResDto> data = userInfoService.getUserInfo(principal);
         return ResponseEntity.status(data.getStatus()).body(data);
     }
 }

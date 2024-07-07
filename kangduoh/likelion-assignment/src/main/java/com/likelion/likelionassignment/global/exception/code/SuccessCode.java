@@ -11,6 +11,7 @@ public enum SuccessCode {
 
     // 200 OK
     LOGIN_USER_SUCCESS(HttpStatus.OK, "로그인 성공"),
+    GET_USERINFO_SUCCESS(HttpStatus.OK, "사용자 정보 조회 성공"),
     GET_ALL_POSTS_SUCCESS(HttpStatus.OK, "모든 게시글 조회 성공"),
     GET_POST_SUCCESS(HttpStatus.OK, "특정 게시글 조회 성공"),
     UPDATE_POST_SUCCESS(HttpStatus.OK, "게시글 수정 성공"),

@@ -11,7 +11,6 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -33,22 +32,20 @@ public class PostController {
             Principal principal) throws IOException {
 
         ApiResponseTemplate<PostCreateResDto> data = postService.createPost(principal, reqDto, image);
-
         return ResponseEntity.status(data.getStatus()).body(data);
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponseTemplate<List<PostDto>>> getAllPosts() {
-        Principal principal = SecurityContextHolder.getContext().getAuthentication();
-        ApiResponseTemplate<List<PostDto>> data = postService.getAllPosts(principal);
+    public ResponseEntity<ApiResponseTemplate<List<PostDto>>> getAllPosts(Principal principal) {
 
+        ApiResponseTemplate<List<PostDto>> data = postService.getAllPosts(principal);
         return ResponseEntity.status(data.getStatus()).body(data);
     }
 
     @GetMapping("/{postId}")
     public ResponseEntity<ApiResponseTemplate<PostDto>> getPostById(@PathVariable Long postId, Principal principal) {
-        ApiResponseTemplate<PostDto> data = postService.getPostById(postId, principal);
 
+        ApiResponseTemplate<PostDto> data = postService.getPostById(postId, principal);
         return ResponseEntity.status(data.getStatus()).body(data);
     }
 
@@ -60,7 +57,6 @@ public class PostController {
             Principal principal) throws IOException {
 
         ApiResponseTemplate<PostUpdateResDto> data = postService.updatePost(principal, postId, reqDto, image);
-
         return ResponseEntity.status(data.getStatus()).body(data);
     }
 
@@ -70,7 +66,6 @@ public class PostController {
             Principal principal) {
 
         ApiResponseTemplate<Void> data = postService.deletePost(principal, postId);
-
         return ResponseEntity.status(data.getStatus()).body(data);
     }
 }
