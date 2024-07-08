@@ -23,15 +23,21 @@ import java.security.Principal;
 public class PostController {
     private final PostService postService;
 
-    @GetMapping
-    public ResponseEntity<PostListResDto> postfindAll(Principal principal) {
-        PostListResDto postListResDto = postService.postFindAll(principal);
+    @GetMapping("/user")    // 로그인한 사용자가 쓴 게시글 조회
+    public ResponseEntity<PostListResDto> userPostFind(Principal principal) {
+        PostListResDto postListResDto = postService.userPostFind(principal);
         return new ResponseEntity<>(postListResDto, HttpStatus.OK);
     }
 
-    @GetMapping("/{postId}")
+    @GetMapping("/{postId}")    // postid로 게시글 한 개 조회
     public ResponseEntity<PostInfoResDto> postFindOne(@PathVariable Long postId) {
         return new ResponseEntity<>(postService.postFindOne(postId), HttpStatus.OK);
+    }
+
+    @GetMapping // 모든 게시글 조회
+    public ResponseEntity<PostListResDto> postFindAll() {
+        PostListResDto postListResDto = postService.postFindAll();
+        return new ResponseEntity<>(postListResDto, HttpStatus.OK);
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -44,8 +50,8 @@ public class PostController {
     }
 
     @DeleteMapping("/{postId}")
-    public ResponseEntity<String> deletePost(@PathVariable("postId") Long postId) {
-        postService.deletePost(postId);
+    public ResponseEntity<String> deletePost(@PathVariable("postId") Long postId, Principal principal) {
+        postService.deletePost(postId, principal);
         return new ResponseEntity<>("게시글이 삭제되었습니다.", HttpStatus.OK);
     }
 

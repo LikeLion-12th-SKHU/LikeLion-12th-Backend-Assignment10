@@ -40,8 +40,9 @@ public class PostService {
         return PostInfoResDto.from(post);
     }
 
-    // 사용자 id로 게시글 전체 조회
-    public PostListResDto postFindAll(Principal principal) {
+    // 사용자 id로 사용자가 쓴 게시글 조회
+    @Transactional
+    public PostListResDto userPostFind(Principal principal) {
         Long id = Long.parseLong(principal.getName());
         List<Post> posts = postRepository.findByUserId(id)
                 .orElseThrow( () -> new IllegalArgumentException("해당 사용자의 게시글을 찾을 수 없습니다. id = " + id));
@@ -52,7 +53,8 @@ public class PostService {
         return PostListResDto.from(postInfoResDtoList);
     }
 
-    // postid로 게시글 조회
+    // postid로 게시글 한 개 조회
+    @Transactional
     public PostInfoResDto postFindOne(Long postId) {
         Post post = postRepository.findById(postId)
                 .orElseThrow( () -> new IllegalArgumentException("해당하는 게시글이 없습니다. id = " + postId));
@@ -60,19 +62,42 @@ public class PostService {
         return PostInfoResDto.from(post);
     }
 
+    // 모든 사용자의 게시글 전체 조회
     @Transactional
-    public void deletePost(Long postId) {
+    public PostListResDto postFindAll() {
+        List<Post> posts = postRepository.findAll();
+
+        List<PostInfoResDto> postInfoResDtoList = posts.stream()
+                .map(PostInfoResDto::from)
+                .toList();
+        return PostListResDto.from(postInfoResDtoList);
+    }
+
+    @Transactional
+    public void deletePost(Long postId, Principal principal) {
         Post post = postRepository.findById(postId)
                 .orElseThrow( () -> new IllegalArgumentException("해당하는 게시글이 없습니다. id =" + postId));
+
+        Long id = post.getUser().getId();
+        Long LoginId = Long.parseLong(principal.getName());
+
+        if (!id.equals(LoginId)) {
+            throw new IllegalArgumentException("게시글을 삭제할 권한이 없습니다.");
+        }
         postRepository.delete(post);
     }
 
     @Transactional
     public PostInfoResDto updatePost(Long postId, PostUpdateReqDto postUpdateReqDto, MultipartFile image, Principal principal) throws IOException{
-        Long id = Long.parseLong(principal.getName());
-
         Post post = postRepository.findById(postId)
                 .orElseThrow( () -> new IllegalArgumentException("해당하는 게시글이 없습니다. id = " + postId));
+
+        Long id = post.getUser().getId();
+        Long LoginId = Long.parseLong(principal.getName());
+
+        if (!id.equals(LoginId)) {
+            throw new IllegalArgumentException("게시글을 수정할 권한이 없습니다.");
+        }
 
         post.update(postUpdateReqDto);
 
