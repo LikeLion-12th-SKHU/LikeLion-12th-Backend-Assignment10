@@ -56,7 +56,7 @@ public class FeedService {
 	public void deleteFeedOfUser(String userId, Long feedId){
 		User user = findUserInFeedService(userId);
 		Feed feed = feedRepository.findById(feedId).orElseThrow(
-			() -> new NotFoundException(Error.MEMBERS_NOT_FOUND_EXCEPTION, Error.MEMBERS_NOT_FOUND_EXCEPTION.getMessage())
+			() -> new NotFoundException(Error.POST_NOT_FOUND_EXCEPTION, Error.POST_NOT_FOUND_EXCEPTION.getMessage())
 		);
 		if (!hasPermission(user,feed)){
 			throw new ForbiddenException(Error.FORBIDDEN_ERROR, Error.FORBIDDEN_ERROR.getMessage());
@@ -69,7 +69,7 @@ public class FeedService {
 	public FeedResponse updateFeedImageOfUser(String userId, Long feedId, MultipartFile updateImage){
 		User user = findUserInFeedService(userId);
 		Feed feed = feedRepository.findById(feedId).orElseThrow(
-			() -> new NotFoundException(Error.MEMBERS_NOT_FOUND_EXCEPTION, Error.MEMBERS_NOT_FOUND_EXCEPTION.getMessage())
+			() -> new NotFoundException(Error.POST_NOT_FOUND_EXCEPTION, Error.POST_NOT_FOUND_EXCEPTION.getMessage())
 		);
 		if (!hasPermission(user,feed)){
 			throw new ForbiddenException(Error.FORBIDDEN_ERROR, Error.FORBIDDEN_ERROR.getMessage());

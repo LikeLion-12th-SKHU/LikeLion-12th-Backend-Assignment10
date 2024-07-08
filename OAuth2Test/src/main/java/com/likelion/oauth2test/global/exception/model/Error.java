@@ -19,6 +19,7 @@ public enum Error {
 	CATEGORIES_PARENT_NOT_FOUND_EXCEPTION(HttpStatus.NOT_FOUND, "부모 카테고리가 존재하지 않습니다."),
 
 	MEMBERS_NOT_FOUND_EXCEPTION(HttpStatus.NOT_FOUND, "해당 유저가 없습니다."),
+	POST_NOT_FOUND_EXCEPTION(HttpStatus.NOT_FOUND, "해당 피드가 없습니다."),
 
 	ITEMS_NOT_FOUND_EXCEPTION(HttpStatus.NOT_FOUND, "해당 아이템이 존재하지 않습니다."),
 	IMAGE_NOT_FOUND_EXCEPTION(HttpStatus.NOT_FOUND, "해당 이미지를 찾을 수 없습니다."),
