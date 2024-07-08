@@ -22,10 +22,11 @@ import java.security.Principal;
 public class PostController {
     private final PostService postService;
 
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)//멀티파트 폼 데이터를 사용한다
     public ResponseEntity<PostResponseDto> postSave
             (PostRequestDto postRequestDto, @RequestPart("image") MultipartFile image, Principal principal) throws IOException {
         PostResponseDto postResponseDto = postService.postSave(postRequestDto, image, principal);
+        //principal: 인증된 사용자의 정보를 포함하는 Principal 객체
         return new ResponseEntity<>(postResponseDto, HttpStatus.CREATED);
     }
 }
