@@ -23,7 +23,7 @@ public class PostController {
 
     // 모든 게시글 조회
     @GetMapping
-    public ResponseEntity<?> getAllPosts(@AuthenticationPrincipal Principal principal) {
+    public ResponseEntity<?> getAllPosts( Principal principal) {
         return ResponseEntity.ok(postService.getAllPosts(principal));
     }
 
@@ -38,7 +38,7 @@ public class PostController {
     public ResponseEntity<?> savePost(
             @RequestPart("post") PostSaveReqDto postSaveReqDto,
             @RequestPart("image") MultipartFile image,
-            @AuthenticationPrincipal Principal principal) {
+             Principal principal) {
         try {
             return new ResponseEntity<>(postService.savePost(postSaveReqDto, image, principal), HttpStatus.CREATED);
         } catch (IOException e) {
@@ -59,7 +59,7 @@ public class PostController {
             @PathVariable Long postId,
             @RequestPart("post") PostUpdateReqDto postUpdateReqDto,
             @RequestPart("image") MultipartFile image,
-            @AuthenticationPrincipal Principal principal) {
+             Principal principal) {
         try {
             return ResponseEntity.ok(postService.updatePost(postId, postUpdateReqDto, image, principal));
         } catch (IOException e) {
