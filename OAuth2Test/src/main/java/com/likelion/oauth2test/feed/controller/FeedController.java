@@ -48,6 +48,6 @@ public class FeedController {
 	@PatchMapping(value = "/{feedId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public BaseResponse<FeedResponse> updateFeedImageOfUser(@AuthenticationPrincipal String userId, @PathVariable(name = "feedId") Long feedId, @RequestPart(name = "image")
 		MultipartFile updateImage){
-		return BaseResponse.success(Success.POST_SAVE_SUCCESS,feedService.updateFeedImageOfUser(userId, feedId, updateImage));
+		return BaseResponse.success(Success.POST_UPDATE_SUCCESS,feedService.updateFeedImageOfUser(userId, feedId, updateImage));
 	}
 }
