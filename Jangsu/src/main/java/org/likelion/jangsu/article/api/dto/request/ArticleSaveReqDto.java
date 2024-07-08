@@ -15,9 +15,12 @@ public record ArticleSaveReqDto(
         String content,
 
         LocalDateTime writeTime,
+<<<<<<< HEAD
 
         String url,
 
+=======
+>>>>>>> 6672a7d67175708625ee727edab227bf410b422f
         User user
 ) {
 }

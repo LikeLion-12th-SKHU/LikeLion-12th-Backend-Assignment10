@@ -26,6 +26,10 @@ public class UserService {
     public UserInfoResDto userSave(UserSaveReqDto userSaveReqDto) {
         User user = User.builder()
                 .userId(userSaveReqDto.userId())
+<<<<<<< HEAD
+=======
+                .password(userSaveReqDto.password())
+>>>>>>> 6672a7d67175708625ee727edab227bf410b422f
                 .email(userSaveReqDto.email())
                 .role(userSaveReqDto.role())
                 .build();

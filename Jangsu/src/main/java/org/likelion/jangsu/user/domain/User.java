@@ -24,8 +24,15 @@ public class User {
     private Integer userNum;
 
     private String userId;
+<<<<<<< HEAD
     private String email;
     private String name;
+=======
+    private String password;
+    private String email;
+    private String name;
+    private String url;
+>>>>>>> 6672a7d67175708625ee727edab227bf410b422f
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -35,16 +42,29 @@ public class User {
     private List<Article> articleList = new ArrayList<>();
 
     @Builder
+<<<<<<< HEAD
     public User(String userId, String email, String name, Role role) {
         this.userId = userId;
         this.email = email;
         this.name = name;
+=======
+    public User(Integer userNum, String userId, String password, String email, String name, String url, Role role) {
+        this.userId = userId;
+        this.password = password;
+        this.email = email;
+        this.name = name;
+        this.url = url;
+>>>>>>> 6672a7d67175708625ee727edab227bf410b422f
 
         this.role = role;
     }
 
     public void userInfoUpdate(UserUpdateReqDto userUpdateReqDto) {
         this.userId = userUpdateReqDto.userId();
+<<<<<<< HEAD
+=======
+        this.password = userUpdateReqDto.password();
+>>>>>>> 6672a7d67175708625ee727edab227bf410b422f
         this.email = userUpdateReqDto.email();
         this.name = userUpdateReqDto.name();
     }

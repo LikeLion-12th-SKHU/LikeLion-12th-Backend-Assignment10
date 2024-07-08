@@ -9,12 +9,16 @@ import org.likelion.jangsu.article.appication.ArticleService;
 import org.likelion.jangsu.common.dto.BaseResponse;
 import org.likelion.jangsu.common.error.SuccessCode;
 import org.springframework.http.HttpStatus;
+<<<<<<< HEAD
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;
+=======
+import org.springframework.web.bind.annotation.*;
+>>>>>>> 6672a7d67175708625ee727edab227bf410b422f
 
 @RestController
 @RequestMapping("/article")
@@ -25,12 +29,19 @@ public class ArticleController {
         this.articleService = articleService;
     }
     // 게시글 생성(C)
+<<<<<<< HEAD
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public BaseResponse<ArticleInfoResDto> articleSave(@RequestPart("post") @Valid ArticleSaveReqDto articleSaveReqDto,
                                                        @RequestPart("image")MultipartFile image,
                                                        Principal principal) throws IOException {
         ArticleInfoResDto articleInfoResDto = articleService.articleSave(articleSaveReqDto, image, principal);
+=======
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public BaseResponse<ArticleInfoResDto> articleSave(@RequestBody @Valid ArticleSaveReqDto articleSaveReqDto) {
+        ArticleInfoResDto articleInfoResDto = articleService.articleSave(articleSaveReqDto);
+>>>>>>> 6672a7d67175708625ee727edab227bf410b422f
         return BaseResponse.success(SuccessCode.ARTICLE_SAVE_SUCCESS, articleInfoResDto);
     }
     // 게시글 하나만 조회(R1)
