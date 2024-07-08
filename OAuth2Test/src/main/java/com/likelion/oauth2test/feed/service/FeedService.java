@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.likelion.oauth2test.external.S3Service;
 import com.likelion.oauth2test.feed.controller.dto.request.UploadImageRequestDto;
@@ -57,11 +58,32 @@ public class FeedService {
 		Feed feed = feedRepository.findById(feedId).orElseThrow(
 			() -> new NotFoundException(Error.MEMBERS_NOT_FOUND_EXCEPTION, Error.MEMBERS_NOT_FOUND_EXCEPTION.getMessage())
 		);
-		if (!user.equals(feed.getUser())){
+		if (!hasPermission(user,feed)){
 			throw new ForbiddenException(Error.FORBIDDEN_ERROR, Error.FORBIDDEN_ERROR.getMessage());
 		}
 		s3Service.deleteFile(feed.getImage());
 		feedRepository.deleteById(feedId);
+	}
+
+	@Transactional
+	public FeedResponse updateFeedImageOfUser(String userId, Long feedId, MultipartFile updateImage){
+		User user = findUserInFeedService(userId);
+		Feed feed = feedRepository.findById(feedId).orElseThrow(
+			() -> new NotFoundException(Error.MEMBERS_NOT_FOUND_EXCEPTION, Error.MEMBERS_NOT_FOUND_EXCEPTION.getMessage())
+		);
+		if (!hasPermission(user,feed)){
+			throw new ForbiddenException(Error.FORBIDDEN_ERROR, Error.FORBIDDEN_ERROR.getMessage());
+		}
+		String imageUrl = feed.getImage();
+		if (updateImage != null && !updateImage.isEmpty()){
+			if (imageUrl != null && !imageUrl.isEmpty()){
+				s3Service.deleteFile(imageUrl);
+			}
+			imageUrl = s3Service.uploadImage(updateImage, "testimage");
+		}
+		feed.updateImage(imageUrl);
+		return FeedResponse.from(feed);
+
 	}
 
 	private User findUserInFeedService(String userId){
@@ -70,6 +92,10 @@ public class FeedService {
 				() -> new NotFoundException(Error.MEMBERS_NOT_FOUND_EXCEPTION,
 					Error.MEMBERS_NOT_FOUND_EXCEPTION.getMessage())
 			);
+	}
+
+	private boolean hasPermission(User user, Feed feed){
+		return user.equals(feed.getUser());
 	}
 
 }

@@ -43,4 +43,14 @@ public class Feed {
 		this.content = content;
 		this.user = user;
 	}
+
+	public void updateContent(String content){
+		this.content = content;
+	}
+	public void updateImage(String image){
+		this.image = image;
+	}
+	public void updateTitle(String title){
+		this.title = title;
+	}
 }
