@@ -1,0 +1,25 @@
+spring:
+  spring:
+    config:
+      activate:
+        on-profile: prod
+  datasource:
+    url: jdbc:mysql://localhost:3306/hjsforassginment
+    username: root
+    password:
+cloud:
+  aws:
+    credentials:
+      access-key:
+      secret-key:
+    s3:
+      bucket: mybuckethjs
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+jwt:
+  secret:
+access-token-validity-in-milliseconds: 3600000
+client-id:
+client-secret:
