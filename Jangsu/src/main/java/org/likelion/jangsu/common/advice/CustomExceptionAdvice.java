@@ -25,7 +25,15 @@ public class CustomExceptionAdvice {
     }
 
     // 기타
+<<<<<<< HEAD
     @ExceptionHandler(CustomException.class)
+=======
+<<<<<<< HEAD
+    @ExceptionHandler(CustomException.class)
+=======
+    @ExceptionHandler(Exception.class)
+>>>>>>> 6672a7d67175708625ee727edab227bf410b422f
+>>>>>>> 1e17f5d818217f5a48483ca84d9de52866da5fae
     public BaseResponse handleCustomException(CustomException e) {
         log.error("CustomException : {}", e.getMessage(), e);
         return BaseResponse.error(e.getErrorCode(), e.getMessage());

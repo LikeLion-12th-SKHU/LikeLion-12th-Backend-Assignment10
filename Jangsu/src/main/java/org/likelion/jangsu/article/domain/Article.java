@@ -21,7 +21,14 @@ public class Article {
 
     private String articleName;
     private String content;
+<<<<<<< HEAD
     private String url;
+=======
+<<<<<<< HEAD
+    private String url;
+=======
+>>>>>>> 6672a7d67175708625ee727edab227bf410b422f
+>>>>>>> 1e17f5d818217f5a48483ca84d9de52866da5fae
     private LocalDateTime writeTime = LocalDateTime.now();
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -29,10 +36,24 @@ public class Article {
     private User user;
 
     @Builder
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 1e17f5d818217f5a48483ca84d9de52866da5fae
     private Article(String articleName, String content, String url, LocalDateTime writeTime, User user) {
         this.articleName = articleName;
         this.content = content;
         this.url = url;
+<<<<<<< HEAD
+=======
+=======
+    private Article(String articleName, String content, LocalDateTime writeTime, User user) {
+        this.articleName = articleName;
+        this.content = content;
+>>>>>>> 6672a7d67175708625ee727edab227bf410b422f
+        this.writeTime = writeTime;
+        this.user = user;
+>>>>>>> 1e17f5d818217f5a48483ca84d9de52866da5fae
     }
 
     public void articleUpdate (ArticleUpdateReqDto articleUpdateReqDto) {

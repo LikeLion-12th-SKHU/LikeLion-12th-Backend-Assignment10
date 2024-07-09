@@ -24,10 +24,21 @@ public class User {
     private Integer userNum;
 
     private String userId;
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    private String email;
+    private String name;
+=======
+>>>>>>> 1e17f5d818217f5a48483ca84d9de52866da5fae
     private String password;
     private String email;
     private String name;
     private String url;
+<<<<<<< HEAD
+=======
+>>>>>>> 6672a7d67175708625ee727edab227bf410b422f
+>>>>>>> 1e17f5d818217f5a48483ca84d9de52866da5fae
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -37,18 +48,39 @@ public class User {
     private List<Article> articleList = new ArrayList<>();
 
     @Builder
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    public User(String userId, String email, String name, Role role) {
+        this.userId = userId;
+        this.email = email;
+        this.name = name;
+=======
+>>>>>>> 1e17f5d818217f5a48483ca84d9de52866da5fae
     public User(Integer userNum, String userId, String password, String email, String name, String url, Role role) {
         this.userId = userId;
         this.password = password;
         this.email = email;
         this.name = name;
         this.url = url;
+<<<<<<< HEAD
+=======
+>>>>>>> 6672a7d67175708625ee727edab227bf410b422f
+
+>>>>>>> 1e17f5d818217f5a48483ca84d9de52866da5fae
         this.role = role;
     }
 
     public void userInfoUpdate(UserUpdateReqDto userUpdateReqDto) {
         this.userId = userUpdateReqDto.userId();
+<<<<<<< HEAD
         this.password = userUpdateReqDto.password();
+=======
+<<<<<<< HEAD
+=======
+        this.password = userUpdateReqDto.password();
+>>>>>>> 6672a7d67175708625ee727edab227bf410b422f
+>>>>>>> 1e17f5d818217f5a48483ca84d9de52866da5fae
         this.email = userUpdateReqDto.email();
         this.name = userUpdateReqDto.name();
     }

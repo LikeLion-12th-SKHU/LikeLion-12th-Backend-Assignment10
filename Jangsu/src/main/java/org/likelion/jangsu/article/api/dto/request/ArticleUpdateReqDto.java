@@ -13,11 +13,21 @@ public record ArticleUpdateReqDto(
         @NotBlank(message = "내용을 입력하시오.")
         String content,
 
+<<<<<<< HEAD
 
         LocalDateTime writeTime,
 
         String url
 
 
+=======
+<<<<<<< HEAD
+        LocalDateTime writeTime,
+
+        String url
+=======
+        LocalDateTime writeTime
+>>>>>>> 6672a7d67175708625ee727edab227bf410b422f
+>>>>>>> 1e17f5d818217f5a48483ca84d9de52866da5fae
 ) {
 }

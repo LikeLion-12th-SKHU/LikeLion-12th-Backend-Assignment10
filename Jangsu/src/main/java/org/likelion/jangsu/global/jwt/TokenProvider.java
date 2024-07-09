@@ -32,8 +32,16 @@ public class TokenProvider {
     @Autowired
     public TokenProvider(@Value("${jwt.secret}") String secretKey,
                          @Value("${jwt.access-token-validity-in-milliseconds}") long accessTokenValidityTime) {
+<<<<<<< HEAD
 
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);   // secretKey를 Base64 디코딩하여 바이트 배열로 변환
+=======
+<<<<<<< HEAD
+        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
+=======
+        byte[] keyBytes = Decoders.BASE64.decode(secretKey);   // secretKey를 Base64 디코딩하여 바이트 배열로 변환
+>>>>>>> 6672a7d67175708625ee727edab227bf410b422f
+>>>>>>> 1e17f5d818217f5a48483ca84d9de52866da5fae
         this.key = Keys.hmacShaKeyFor(keyBytes);
         this.accessTokenValidityTime = accessTokenValidityTime;
     }
