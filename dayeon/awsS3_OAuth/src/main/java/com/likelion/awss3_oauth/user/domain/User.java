@@ -22,10 +22,10 @@ public class User {
     @Column(name = "USER_EMAIL", nullable = false)
     private String email;
 
-    @Column(name = "USER_PICTURE_URL", nullable = false)
+    @Column(name = "USER_PICTURE_URL")
     private String image;
 
-    @Column(name = "USER_CONTENT", nullable = false)
+    @Column(name = "USER_CONTENT")
     private String content;
 
     @Enumerated(EnumType.STRING)
